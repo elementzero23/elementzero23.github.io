@@ -9,10 +9,15 @@ class Editor {
         } else {
             console.log('no cookies set')
             this.pixels = []
-            for (var i = 0; i < 64; i++) {
-                this.pixels[i] = 0
+            for (var j = 0; j < 128; j++) {
+                this.pixels[j] = []
+                for (var i = 0; i < 64; i++) {
+                    this.pixels[j][i] = 0
+                }
             }
+            
         }
+        this.activeTile = 0;
         this.LColor = 0
         this.RColor = 0
         this.tool = 'paint'
@@ -24,7 +29,7 @@ class Editor {
 
     reset() {
         for (var i = 0; i < 64; i++) {
-            this.pixels[i] = 0
+            this.pixels[this.activeTile][i] = 0
         }
         this.uppdateCanvas()
     }
@@ -51,14 +56,14 @@ class Editor {
     uppdateCanvas() {
         this.ctx.clearRect(0, 0, 256, 256)
         for (var i = 0; i < 64; i++) {
-            this.ctx.fillStyle = this.getHexColor(this.pixels[i])
+            this.ctx.fillStyle = this.getHexColor(this.pixels[this.activeTile][i])
             this.ctx.fillRect((i%8)*32, (parseInt(i/8)*32), 32, 32)
         }
         this.drawGrid()
 
         this.ctxPreviewMulti.clearRect(0, 0, 64, 64)
         for (var i = 0; i < 64; i++) {
-            this.ctxPreviewMulti.fillStyle = this.getHexColor(this.pixels[i])
+            this.ctxPreviewMulti.fillStyle = this.getHexColor(this.pixels[this.activeTile][i])
             for (var j = 0; j < 16; j++) {
                 this.ctxPreviewMulti.fillRect((i%8)*4+32*parseInt(j/4), (parseInt(i/8)*4+32*(j%4)), 4, 4)
             }
@@ -66,9 +71,11 @@ class Editor {
 
         this.ctxPreviewSmall.clearRect(0, 0, 32, 32)
         for (var i = 0; i < 64; i++) {
-            this.ctxPreviewSmall.fillStyle = this.getHexColor(this.pixels[i])
+            this.ctxPreviewSmall.fillStyle = this.getHexColor(this.pixels[this.activeTile][i])
             this.ctxPreviewSmall.fillRect((i%8)*4, (parseInt(i/8)*4), 4, 4)
         }
+
+        this.updateActiveTile()
 
         /*
         const d = new Date();
@@ -77,6 +84,15 @@ class Editor {
         console.log('pixels=[' + this.pixels + '];' + expires + ';path=/')
         document.cookie = 'pixels=[' + this.pixels + '];' + expires + ';path=/'
         */
+    }
+
+    updateActiveTile() {
+        var ctxActiveTile = document.getElementById('tile-'+this.activeTile).getContext('2d')
+        ctxActiveTile.clearRect(0, 0, 32, 32)
+        for (var i = 0; i < 64; i++) {
+            ctxActiveTile.fillStyle = this.getHexColor(this.pixels[this.activeTile][i])
+            ctxActiveTile.fillRect((i%8)*4, (parseInt(i/8)*4), 4, 4)
+        }
     }
 
     /**
@@ -101,7 +117,7 @@ class Editor {
      * @param {*} y 
      */
     paintTile(x, y) {
-        this.pixels[x+y*8] = this.LColor
+        this.pixels[this.activeTile][x+y*8] = this.LColor
         this.uppdateCanvas()
     }
 
@@ -117,26 +133,26 @@ class Editor {
             this.pixelsVisited[i] = false
         }
         this.pixelsVisited[x+y*8] = true
-        this.floodFillRec(x, y, this.pixels[x+y*8], this.LColor)
+        this.floodFillRec(x, y, this.pixels[this.activeTile][x+y*8], this.LColor)
     }
 
     floodFillRec(x, y, oldColor, color) {
         this.pixelsVisited[x+y*8] = true
-        this.pixels[x+y*8] = color
-        if (x > 0 && this.pixels[x-1+y*8] == oldColor && !this.pixelsVisited[x-1+y*8]) {
-                this.pixels[x-1+y*8] = color
+        this.pixels[this.activeTile][x+y*8] = color
+        if (x > 0 && this.pixels[this.activeTile][x-1+y*8] == oldColor && !this.pixelsVisited[x-1+y*8]) {
+                this.pixels[this.activeTile][x-1+y*8] = color
                 this.floodFillRec(x-1, y, oldColor, color)
         }
-        if (x < 7 && this.pixels[x+1+y*8] == oldColor && !this.pixelsVisited[x+1+y*8]) {
-            this.pixels[x+1+y*8] = color
+        if (x < 7 && this.pixels[this.activeTile][x+1+y*8] == oldColor && !this.pixelsVisited[x+1+y*8]) {
+            this.pixels[this.activeTile][x+1+y*8] = color
             this.floodFillRec(x+1, y, oldColor, color)
         }
-        if (y > 0 && this.pixels[x+(y-1)*8] == oldColor && !this.pixelsVisited[x+(y-1)*8]) {
-            this.pixels[x+(y-1)*8] = color
+        if (y > 0 && this.pixels[this.activeTile][x+(y-1)*8] == oldColor && !this.pixelsVisited[x+(y-1)*8]) {
+            this.pixels[this.activeTile][x+(y-1)*8] = color
             this.floodFillRec(x, y-1, oldColor, color)
         }
-        if (y < 7 && this.pixels[x+(y+1)*8] == oldColor && !this.pixelsVisited[x+(y+1)*8]) {
-            this.pixels[x+(y+1)*8] = color
+        if (y < 7 && this.pixels[this.activeTile][x+(y+1)*8] == oldColor && !this.pixelsVisited[x+(y+1)*8]) {
+            this.pixels[this.activeTile][x+(y+1)*8] = color
             this.floodFillRec(x, y+1, oldColor, color)
         }
         this.uppdateCanvas()
@@ -179,6 +195,11 @@ class Editor {
      */
     setTool(tool) {
         this.tool = tool
+    }
+
+    setActiveTile(number) {
+        this.activeTile = number
+        this.uppdateCanvas()
     }
 
     getPixels() {

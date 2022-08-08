@@ -9,6 +9,9 @@
 
 <body>
     <div id="wrapper">
+        <div id="header">
+            <h1>Game Boy <i>Web</i> Tile Designer</h1>
+        </div>
         <div id="menu-bar">
             <div id="menu-file" class="menu-item">
                 File
@@ -18,8 +21,14 @@
                         <div id="submenu-file-export" class="submenu-item">Export</div>
                 </div>
             </div>
-            <div class="menu-item">Edit</div>
-            <div class="menu-item">Design</div>
+            <div class="menu-item">
+                Edit
+                <div id="submenu-edit" class="submenu">
+                    <div id="submenu-edit-copy" class="submenu-item">Copy</div>
+                    <div id="submenu-edit-cut" class="submenu-item">Cut</div>
+                    <div id="submenu-edit-paste" class="submenu-item">Paste</div>
+            </div>
+            </div>
             <div class="menu-item">View</div>
             <div class="menu-item">Help</div>
         </div>
@@ -53,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <div id="tiles">tiles</div>
+            <div id="tiles"></div>
         </div>
     </div>
 
