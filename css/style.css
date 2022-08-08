@@ -1,0 +1,43 @@
+#wrapper {
+    width: 550px;
+    height: 400px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#symbol-bar {
+    width: 100%;
+    height: 50px;
+    background-color: darkkhaki;
+    display: none;
+}
+
+#tools {
+    display: flex;
+    flex-direction: column;
+    background-color: silver;
+    width: 50px;
+}
+
+.tools-button {
+    width: 20px;
+    height: 20px;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tools-button:hover {
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 14px;
+}
+
+.tools-button-active {
+    background-color: #e0e0e0;
+}
+
+#tiles {
+    display: flex;
+    background-color: silver;
+    width: 50px;
+}

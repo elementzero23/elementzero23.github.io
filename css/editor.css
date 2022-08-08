@@ -1,0 +1,100 @@
+#editor-wrapper {
+    width: 100%;
+    height: calc(100% - 80px);
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #c0c0c0;
+}
+
+#editor {
+    display: flex;
+    width: calc(100% - 100px);;
+    position: relative;
+}
+
+#editor-tiles {
+    width: 256px;
+    height: 256px;
+    background-color: white;
+    margin-top: 20px;
+    margin-left: 20px;
+    border: 1px solid black;
+}
+
+#editor-preview-wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 20px;
+    margin-left: 20px;
+    height: 256px;;
+}
+
+#editor-preview {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 50px;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#editor-preview-multiple {
+    width: 128px;
+    height: 128px;
+    border: 1px solid black;
+}
+
+#editor-controls {
+    height: 30px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    margin-left: 20px;
+}
+
+.editor-controls-wrapper {
+    display: flex;
+    margin-right: 5px;
+}
+
+.editor-controls-LR {
+    border: 1px solid black;
+    margin: auto;
+    width: 20px;
+    text-align: center;
+    cursor: default;
+}
+
+#editor-controls-colors-wrapper {
+    display: flex;
+    margin-left: 20px;
+}
+
+.editor-controls-color {
+    border: 1px solid black;
+    margin: auto;
+    width: 20px;
+    text-align: center;
+}
+
+.editor-controls-color:hover {
+    cursor: pointer;
+}
+
+#editor-controls-color-0 {
+    background-color: #ffffff;
+}
+
+#editor-controls-color-1 {
+    background-color: #c0c0c0;
+}
+
+#editor-controls-color-2 {
+    background-color: #808080;
+}
+
+#editor-controls-color-3 {
+    background-color: #000000;
+    color: #ffffff;
+}

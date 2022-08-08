@@ -1,0 +1,40 @@
+#menu-bar {
+    width: calc(100%-2px);
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #c0c0c0;
+}
+
+.menu-item {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 4px 5px 4px 5px;
+    position: relative;
+}
+
+.menu-item:hover {
+    cursor: pointer;
+    background-color: #c0c0c0;
+}
+
+.submenu {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background-color: #ffffff;
+    z-index: 10;
+    display: none;
+}
+
+.submenu-item {
+    display: block;
+    padding: 5px;
+    width: 100px;
+}
+
+.submenu-item:hover {
+    cursor: pointer;
+    background-color: #c0c0c0;
+}
