@@ -54,10 +54,10 @@ function init_editor() {
 function init_menu() {
     menu = new Menu(editor)
 
+    // ########## menu file
     document.getElementById('menu-file').addEventListener('click', () => {
         document.getElementById('submenu-file').style.display = 'block'
     })
-
     document.getElementById('submenu-file').addEventListener('mouseleave', () => {
         document.getElementById('submenu-file').style.display = 'none'
     })
@@ -65,9 +65,24 @@ function init_menu() {
     document.getElementById('submenu-file-new').addEventListener('click', () => {
         menu.new()
     })
-
     document.getElementById('submenu-file-export').addEventListener('click', () => {
         menu.export()
+    })
+
+    // ########## menu helb
+    document.getElementById('menu-help').addEventListener('click', () => {
+        document.getElementById('submenu-help').style.display = 'block'
+    })
+    document.getElementById('submenu-help').addEventListener('mouseleave', () => {
+        document.getElementById('submenu-help').style.display = 'none'
+    })
+
+    document.getElementById('submenu-help-help').addEventListener('click', () => {
+        menu.showHelpPage()
+    })
+
+    document.getElementById('submenu-help-about').addEventListener('click', () => {
+        menu.showAboutPage()
     })
 }
 

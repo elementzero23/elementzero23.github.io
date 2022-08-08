@@ -38,3 +38,12 @@
     cursor: pointer;
     background-color: #c0c0c0;
 }
+
+.submenu-item-disabled {
+    color: #c0c0c0;
+}
+
+.submenu-item-disabled:hover {
+    cursor: default;
+    background-color: #ffffff;
+}

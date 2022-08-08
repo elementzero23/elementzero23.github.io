@@ -25,4 +25,12 @@ class Menu {
     openSaveDialog() {
 
     }
+
+    showHelpPage() {
+
+    }
+
+    showAboutPage() {
+        
+    }
 }
